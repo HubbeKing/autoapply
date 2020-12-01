@@ -15,10 +15,13 @@ spec:
           serviceAccountName: autoapply
           containers:
             - name: autoapply
-              image: registry.hubbe.club/autoapply:1.18.8
+              image: $IMAGE_TAG
+              environment:
+                - name: SOPS_PGP_FP
+                  value: $PGP_KEY_FINGERPRINT
               resources:
                 requests:
-                  cpu: "100m"
+                  cpu: "50m"
                   memory: "50Mi"
               command: ["bash"]
               args: ["/apply.sh"]

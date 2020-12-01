@@ -1,10 +1,7 @@
 FROM ubuntu:20.04
 
-ENV SOPS_VERSION="3.6.0"
-ENV KUBE_VERSION="1.18.8"
-
-# SOPS PGP fingerprint, needed for SOPS decryption
-ENV SOPS_PGP_FP "936E0D27CC44F2E780AD4397CC2FB121243FEF14"
+ENV SOPS_VERSION="3.6.1"
+ENV KUBE_VERSION="1.19.4"
 
 RUN apt update && apt install -y --no-install-recommends git gnupg curl ca-certificates
 
