@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ENV SOPS_VERSION="3.6.1"
-ENV KUBE_VERSION="1.19.4"
+ENV KUBE_VERSION="1.20.2"
 
 RUN apt update && apt install -y --no-install-recommends git gnupg curl ca-certificates
 
