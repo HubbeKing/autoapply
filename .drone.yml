@@ -2,6 +2,11 @@ kind: pipeline
 type: kubernetes
 name: default
 
+# only fire on tags/releases
+trigger:
+  event:
+    - tag
+
 steps:
   - name: build
     image: quay.io/buildah/stable:latest
@@ -16,10 +21,6 @@ steps:
         from_secret: gpg_key
     # can't find a way to get buildah to work right with fuse-overlayfs in unprivileged mode
     privileged: true
-    # only fire on tags/releases
-    trigger:
-      event:
-        - tag
     commands:
       - echo -e $GPG_KEY > gpg.key
       - buildah login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD registry.hubbe.club
