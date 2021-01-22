@@ -21,7 +21,7 @@ steps:
       event:
         - tag
     commands:
-      - echo -e $GPG_KEY > gpg.key
+      - echo $GPG_KEY > gpg.key
       - buildah login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD registry.hubbe.club
       - buildah bud --tag registry.hubbe.club/autoapply:$DRONE_TAG .
       - buildah push registry.hubbe.club/autoapply:$DRONE_TAG
