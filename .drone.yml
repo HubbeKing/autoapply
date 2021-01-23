@@ -19,15 +19,13 @@ steps:
       # get GPG key from orgsecrets
       GPG_KEY:
         from_secret: gpg_key
-      # strip v from DRONE_TAG to make build tag
-      BUILD_TAG: ${DRONE_TAG##v}
     # can't find a way to get buildah to work right with fuse-overlayfs in unprivileged mode
     privileged: true
     commands:
       - echo -e $GPG_KEY > gpg.key
       - buildah login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD registry.hubbe.club
-      - buildah bud --tag registry.hubbe.club/autoapply:$BUILD_TAG .
-      - buildah push registry.hubbe.club/autoapply:$BUILD_TAG
+      - buildah bud --tag registry.hubbe.club/autoapply:$DRONE_TAG .
+      - buildah push registry.hubbe.club/autoapply:$DRONE_TAG
     resources:
       requests:
         cpu: 100
