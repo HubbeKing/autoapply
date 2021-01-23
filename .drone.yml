@@ -24,8 +24,9 @@ steps:
     commands:
       - echo -e $GPG_KEY > gpg.key
       - buildah login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD registry.hubbe.club
-      - buildah bud --tag registry.hubbe.club/autoapply:$DRONE_TAG .
+      - buildah bud --tag registry.hubbe.club/autoapply:$DRONE_TAG --tag registry.hubbe.club/autoapply:latest .
       - buildah push registry.hubbe.club/autoapply:$DRONE_TAG
+      - buildah push registry.hubbe.club/autoapply:latest
     resources:
       requests:
         cpu: 100
