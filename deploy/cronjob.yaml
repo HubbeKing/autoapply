@@ -16,9 +16,17 @@ spec:
           containers:
             - name: autoapply
               image: $IMAGE_TAG
-              environment:
+              env:
                 - name: SOPS_PGP_FP
-                  value: $PGP_KEY_FINGERPRINT
+                  valueFrom:
+                    secretKeyRef:
+                      name: gpg-secrets
+                      key: GPG_FINGERPRINT
+                - name: GPG_PASSPHRASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: gpg-secrets
+                      key: GPG_PASSPHRASE
               resources:
                 requests:
                   cpu: "50m"
@@ -29,8 +37,14 @@ spec:
                 - name: apply-script
                   mountPath: /apply.sh
                   subPath: apply.sh
+                - name: gpg-key
+                  mountPath: /gpg.key
+                  subPath: gpg.key
           volumes:
             - name: apply-script
               configMap:
                 name: apply-script
                 defaultMode: 0755
+            - name: gpg-key
+              secret:
+                secretName: gpg-secrets

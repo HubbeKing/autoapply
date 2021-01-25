@@ -14,6 +14,3 @@ RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/v${KUBE_
 
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
-
-ADD gpg.key /tmp/gpg.key
-RUN gpg --import /tmp/gpg.key

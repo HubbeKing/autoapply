@@ -16,13 +16,9 @@ steps:
         from_secret: registry_username
       REGISTRY_PASSWORD:
         from_secret: registry_password
-      # get GPG key from orgsecrets
-      GPG_KEY:
-        from_secret: gpg_key
     # can't find a way to get buildah to work right with fuse-overlayfs in unprivileged mode
     privileged: true
     commands:
-      - echo -e $GPG_KEY > gpg.key
       - buildah login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD registry.hubbe.club
       - buildah bud --tag registry.hubbe.club/autoapply:$DRONE_TAG --tag registry.hubbe.club/autoapply:latest .
       - buildah push registry.hubbe.club/autoapply:$DRONE_TAG
